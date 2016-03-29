@@ -18,5 +18,28 @@ namespace _0317.Controllers
             Console.WriteLine(ViewBag.CustName);
             return View();
         }
+        /// <summary>
+        /// 新增訂單的畫面
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult InsertOrder()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 新增訂單存檔的Action
+        /// </summary>
+        /// <param name="order"></param>
+        /// <returns></returns>
+        [HttpPost()]
+        public ActionResult InsertOrder(Models.Order order)
+        {
+            Models.OrderService orderService = new Models.OrderService();
+            orderService.InsertOrder(order);
+            return View("Index");
+        }
+
+        
     }
 }
