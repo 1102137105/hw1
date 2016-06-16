@@ -11,7 +11,7 @@ namespace Models
         /// <summary>
         /// 訂單編號
         /// </summary>
-        public int OrderDd {get;set;}
+        public int OrderId {get;set;}
 
         /// <summary>
         /// 客戶代號
@@ -36,7 +36,7 @@ namespace Models
         /// <summary>
         /// 訂單日期
         /// </summary>
-        public DateTime ? Orderdate {get;set;}
+        public DateTime ? OrderDate {get;set;}
 
         /// <summary>
         /// 需要日期
@@ -56,7 +56,7 @@ namespace Models
         /// <summary>
         /// 出貨公司名稱
         /// </summary>
-        public int ShipperName { get; set; }
+        public string ShipperName { get; set; }
 
         /// <summary>
         /// 運費

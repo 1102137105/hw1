@@ -1,6 +1,6 @@
 ﻿
 @{
-    Layout = null;
+    Layout = "~/Views/layout/_LayoutPage1.cshtml";
 }
 
 <!DOCTYPE html>
@@ -8,12 +8,108 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
+    <title>訂單查詢</title>
 </head>
 <body>
-    <div> 
-        @ViewBag.CustId
-        @ViewBag.CustName
-    </div>
+    @using (Html.BeginForm("Index", "Order", FormMethod.Post)){
+    <h2>訂單查詢</h2>
+    <form role="form">
+        <div style="width:30%">
+            <div class="form-group">
+                <label>訂單編號</label>
+                <input type="text" class="form-control" placeholder="訂單編號" name="orderid">
+            </div>
+            <div class="form-group">
+                <label>客戶名稱</label>
+                <select class="form-control" name="custid">
+                    
+                </select>
+            </div>
+            <div class="form-group">
+                <label>負責員工</label>
+                <select class="form-control" name="empid">
+                    foreach (var item in (List <models.order>)ViewBag.data)
+                        {
+                            <option></option>                       
+                        }
+                </select>
+            </div>
+            <div class="form-group">
+                <label>出貨公司</label>
+                <select class="form-control">
+                    <option></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>訂購日期</label>
+                <input type="date" class="form-control" name="orderdate">
+            </div>
+            <div class="form-group">
+                <label>出貨日期</label>
+                <input type="date" class="form-control" name="shippeddate">
+            </div>
+            <div class="form-group">
+                <label>需要日期</label>
+                <input type="date" class="form-control" name="requireddate">
+            </div>
+            <div class="form-group">
+                <input type="submit" value="查詢" />
+                <input type="button" value="清除" />
+                @Html.ActionLink("新增訂單", "InsertOrder")
+            </div>
+
+        </div>
+            <div style="width:100%">
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <td>訂單編號</td>
+                        <td>客戶名稱</td>
+                        <td>訂購日期</td>
+                        <td>發貨日期</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    @if (@ViewBag.selectResult == true)
+                    {
+                        foreach (var item in (List<Models.Order>)ViewBag.data)
+                        {
+                            <tr id='@item.OrderId'>
+                                <td>@item.OrderId</td>
+                                <td>@item.CustName</td>
+                                <td>@item.OrderDate</td>
+                                <td>@item.ShippedDate</td>
+                                <td>
+                                    <a href="#"><input type="button" href="#" value="修改" /></a>
+                                    @*@Html.ActionLink("修改", "Update", new { id = item.OrderId })*@
+                                </td>
+                                <td>
+                                    <a id="btnDelete" class="btnDelete " href="#">刪除</a>
+                                    <input id="@item.OrderId" class="hidOrderId" type="hidden" value='@item.OrderId' />
+                                </td>
+                            </tr>
+                        }
+                    }
+
+                </table>
+            </div>
+            <script type="text/javascript">
+                $(".btnDelete").click(function (e) {
+
+                    var tr = $(this).closest('tr')
+                    $.ajax({
+                        type: "POST",
+                        url: "/Order/DeleteOrder",
+                        data: "OrderId=" + $(this).next().val(),
+                        dataType: "json",
+                        success: function (response) {
+                            $(tr).remove();
+                        }
+                    });
+                    return false;
+                });
+
+            </script>
+    </form>
+     }
 </body>
 </html>

@@ -3,15 +3,18 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
-    <script src="~/Scripts/jquery-1.9.1.min.js"></script>
+    <title>叡揚資訊</title>
+
+    <script src="~/Scripts/jquery-2.1.4.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.9.1.js"></script>
 </head>
 <body>
-    <div>我愛大家</div>
-    <div>
+    <div style="margin:30px">
         @RenderBody()
+        @RenderSection("scripts", required: false)
     </div>
 </body>
 </html>
+
